@@ -39,29 +39,13 @@ $route['home'] 					= 'Home';
 /* MASTER DATA ROUTES */
 
 /* SALES ACTIVITY ROUTES */
-	$route['dashboard/sales/activity'] 					 		= 'admin/Sales/index';
-	$route['dashboard/sales/activity/report'] 			 		= 'admin/Sales/report';
-	$route['dashboard/sales/activity/create'] 			 		= 'admin/Sales/create_plan';
-	$route['dashboard/sales/activity/save-plan'] 		 		= 'admin/Sales/save_plan';
-	$route['dashboard/sales/activity/modify-plan/(:any)'] 		= 'admin/Sales/modify_plan/$1';
-	$route['dashboard/sales/activity/edit/(:any)'] 		 		= 'admin/Sales/edit_plan/$1';
-	$route['dashboard/sales/activity/update'] 			 		= 'admin/Sales/update_plan';
-	$route['dashboard/sales/activity/delete/(:any)']     		= 'admin/Sales/delete_plan/$1';
-	$route['dashboard/sales/activity/delete_image/(:num)'] 		= 'admin/Sales/delete_image/$1';
-	$route['dashboard/sales/activity/delete_other_image/(:num)'] 		= 'admin/Sales/delete_other_image/$1';
-	$route['dashboard/sales/activity/get_modal_detail/(:any)']  = 'admin/Sales/get_modal_detail/$1';
+	$route['dashboard/gis/site'] 					 		= 'admin/Gis/index_site';
+	$route['dashboard/gis/site/create-site'] 			 	= 'admin/Gis/create_site';
+	$route['dashboard/gis/site/save-site'] 		 			= 'admin/Gis/save_site';
+	$route['dashboard/gis/site/edit/(:any)'] 		 		= 'admin/Gis/edit_site/$1';
+	$route['dashboard/gis/site/update'] 			 		= 'admin/Gis/update_site';
+	$route['dashboard/gis/site/delete/(:any)']     			= 'admin/Gis/delete_site/$1';
 /* SALES ACTIVITY ROUTES */
-
-/* SALES SURVEY MARKET ROUTES */
-	$route['dashboard/sales/survey-market'] 					 			= 'admin/Sales/market';
-	$route['dashboard/sales/survey-market/report'] 			 				= 'admin/Sales/market_report';
-	$route['dashboard/sales/survey-market/create'] 			 				= 'admin/Sales/create_survey';
-	$route['dashboard/sales/survey-market/save-survey'] 		 			= 'admin/Sales/save_survey';
-	$route['dashboard/sales/survey-market/edit/(:any)'] 		 			= 'admin/Sales/edit_survey/$1';
-	$route['dashboard/sales/survey-market/update'] 			 				= 'admin/Sales/update_survey';
-	$route['dashboard/sales/survey-market/delete/(:any)']     				= 'admin/Sales/delete_market/$1';
-	$route['dashboard/sales/survey-market/get_modal_survey_detail/(:any)'] = 'admin/Sales/get_modal_survey_detail/$1';
-/* SALES SURYVEY MARKET ROUTES */
 
 $route['404_override'] 					= '';
 $route['translate_uri_dashes'] 			= FALSE;
