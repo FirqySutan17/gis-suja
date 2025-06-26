@@ -38,14 +38,22 @@ $route['home'] 					= 'Home';
 	$route['dashboard/master/user/excel'] 				= 'admin/master/User/excel';
 /* MASTER DATA ROUTES */
 
-/* SALES ACTIVITY ROUTES */
-	$route['dashboard/gis/site'] 					 		= 'admin/Gis/index_site';
-	$route['dashboard/gis/site/create-site'] 			 	= 'admin/Gis/create_site';
-	$route['dashboard/gis/site/save-site'] 		 			= 'admin/Gis/save_site';
-	$route['dashboard/gis/site/edit/(:any)'] 		 		= 'admin/Gis/edit_site/$1';
+/* GIS ACTIVITY ROUTES */
+	$route['dashboard/gis/site'] 					 				= 'admin/Gis/index_site';
+	$route['dashboard/gis/site/create-site'] 			= 'admin/Gis/create_site';
+	$route['dashboard/gis/site/save-site'] 		 		= 'admin/Gis/save_site';
+	$route['dashboard/gis/site/edit/(:any)'] 		 	= 'admin/Gis/edit_site/$1';
 	$route['dashboard/gis/site/update'] 			 		= 'admin/Gis/update_site';
-	$route['dashboard/gis/site/delete/(:any)']     			= 'admin/Gis/delete_site/$1';
-/* SALES ACTIVITY ROUTES */
+	$route['dashboard/gis/site/delete/(:any)']    = 'admin/Gis/delete_site/$1';
+
+	
+	$route['dashboard/gis/kemitraan'] 					 		= 'admin/GisKemitraan/index_kemitraan';
+	$route['dashboard/gis/kemitraan/create-kemitraan'] 			 	= 'admin/GisKemitraan/create_kemitraan';
+	$route['dashboard/gis/kemitraan/save-kemitraan'] 		 			= 'admin/GisKemitraan/save_kemitraan';
+	$route['dashboard/gis/kemitraan/edit/(:any)'] 		 		= 'admin/GisKemitraan/edit_kemitraan/$1';
+	$route['dashboard/gis/kemitraan/update'] 			 		= 'admin/GisKemitraan/update_kemitraan';
+	$route['dashboard/gis/kemitraan/delete/(:any)']     			= 'admin/GisKemitraan/delete_kemitraan/$1';
+/* GIS ACTIVITY ROUTES */
 
 $route['404_override'] 					= '';
 $route['translate_uri_dashes'] 			= FALSE;
