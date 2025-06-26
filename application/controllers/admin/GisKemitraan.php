@@ -38,6 +38,7 @@ class GisKemitraan extends CI_Controller {
 		$data['area']				= $this->getArea();
 		$data['gisite'] = $this->datatable($filter); // perbaikan: kirim 2 parameter
 		// dd($data['gisite']);
+		$data['filter'] = $filter;
 		$this->template->_v('kemitraan/index', $data);
 	}
 
@@ -199,7 +200,7 @@ class GisKemitraan extends CI_Controller {
 		return $list;
 	}
 
-	private function getFarmData($create = false)
+	private function getFarm($create = false)
 	{
 		$where = "";
 		if ($create) {
