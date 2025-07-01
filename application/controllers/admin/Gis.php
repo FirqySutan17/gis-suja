@@ -25,17 +25,37 @@ class Gis extends CI_Controller {
 
   	public function index_site()
 	{
+		$class = "*";
+		$ownership = "*";
+		
+		
+		if ($this->input->server('REQUEST_METHOD') === 'POST') {
+			$class 	= $this->input->post('class');
+			$ownership 	= $this->input->post('ownership');
+		}
+
+		$filter = [
+			'class'	=> $class,
+			'ownership'	=> $ownership
+		];
+
 		$data['title'] = 'GIS SUJA';
 		$data['user'] = $this->session_data['user'];
-		$data['gisite'] = $this->datatable(); // perbaikan: kirim 2 parameter
-		// dd($data['gisite']);
+		$data['gisite'] = $this->datatable($filter);
+		$data['class']	= $this->getClass();
+		$data['ownership']	= $this->getOwnership();
+		$data['filter'] = $filter;
+
 		$this->template->_v('site/index', $data);
 	}
 
 	public function create_site() {
 		$data['title'] 				= 'GIS SUJA';
 		$data['user']				= $this->session_data['user'];
-		// $data['customer'] 			= $this->datatable_cust();
+		$data['region']				= $this->getRegion();
+		$data['city']				= $this->getCity();
+		$data['class']				= $this->getClass();
+		$data['ownership']			= $this->getOwnership();
 
 		$this->template->_v('site/create', $data);
 	}
@@ -94,9 +114,11 @@ class Gis extends CI_Controller {
 	public function edit_site($id) {
 		$data['title']       = 'GIS - SITE';
 		$data['user']        = $this->session_data['user'];
-		// $data['customer']    = $this->datatable_cust();
+		$data['region']				= $this->getRegion();
+		$data['city']				= $this->getCity();
+		$data['class']				= $this->getClass();
+		$data['ownership']			= $this->getOwnership();
 
-		// Ambil data TB_PLAN berdasarkan ACTIVITY_NO
 		$this->db->where('ID', $id);
 		$data['site'] = $this->db->get('GIS_SITE')->row_array();
 
@@ -150,16 +172,126 @@ class Gis extends CI_Controller {
 		redirect('dashboard/gis/site');
 	}
 
-	private function datatable()
+	private function datatable($filter)
 	{
+		$where_clauses = [];
+
+		if ($filter['class'] != '*') {
+			$where_clauses[] = "CLASS = '" . $filter['class'] . "'";
+		}
+
+		if ($filter['ownership'] != '*') {
+			$where_clauses[] = "OWNERSHIP = '" . $filter['ownership'] . "'";
+		}
+
+		$site_filter = '';
+		if (!empty($where_clauses)) {
+			$site_filter = ' WHERE ' . implode(' AND ', $where_clauses);
+		}
+
 		$query = "
-			SELECT * FROM
-			GIS_SITE
+			SELECT * FROM GIS_SITE
+			$site_filter
 		";
 
 		$main_data = $this->db->query($query)->result_array();
 
 		return array_values($main_data);
+	}
+
+	private function getRegion($key = "")
+	{
+		$list = [
+			"JAVA"				=> "JAVA",
+			"JAWA & SUMATRA"	=> "JAWA & SUMATRA",
+			"BALI"				=> "BALI",
+			"KALIMANTAN"		=> "KALIMANTAN",
+			"SUMATRA"			=> "SUMATRA"
+		];
+
+		if (!empty($key)) {
+			return !empty($list[$key]) ? $list[$key] : "N/A";
+		}
+
+		return $list;
+	}
+
+	private function getCity($key = "")
+	{
+		$list = [
+			"BANDUNG"			=> "BANDUNG",
+			"BANDUNG BARAT"		=> "BANDUNG BARAT",
+			"BANYUMAS"			=> "BANYUMAS",
+			"BEKASI"			=> "BEKASI",
+			"BOGOR"				=> "BOGOR",
+			"BOYOLALI"			=> "BOYOLALI",
+			"CIAMIS"			=> "CIAMIS",
+			"CIANJUR"			=> "CIANJUR",
+			"CIREBON"			=> "CIREBON",
+			"DELI SERDANG"		=> "DELI SERDANG",
+			"JOMBANG"			=> "JOMBANG",
+			"KALIJATI"			=> "KALIJATI",
+			"KAMPAR"			=> "KAMPAR",
+			"KUNINGAN"			=> "KUNINGAN",
+			"LAMPUNG SELATAN"	=> "LAMPUNG SELATAN",
+			"MALANG"			=> "MALANG",
+			"MOJOKERTO"			=> "MOJOKERTO",
+			"PANDEGLANG"		=> "PANDEGLANG",
+			"PASURUAN"			=> "PASURUAN",
+			"PURWAKARTA"		=> "PURWAKARTA",
+			"SAMARINDA"			=> "SAMARINDA",
+			"SUBANG"			=> "SUBANG",
+			"SUKABUMI"			=> "SUKABUMI",
+			"SUKOHARJO"			=> "SUKOHARJO",
+			"SURABAYA"			=> "SURABAYA",
+			"TABANAN"			=> "TABANAN",
+			"TANAH LAUT"		=> "TANAH LAUT",
+			"TANJUNG JABUNG TIMUR"	=> "TANJUNG JABUNG TIMUR",
+			"TASIKMALAYA"		=> "TASIKMALAYA",
+			"TEGAL"				=> "TEGAL",
+			"WONOGIRI"			=> "WONOGIRI"
+		];
+
+		if (!empty($key)) {
+			return !empty($list[$key]) ? $list[$key] : "N/A";
+		}
+
+		return $list;
+	}
+
+	private function getClass($key = "")
+	{
+		$list = [
+			"GPS"			=> "GPS",
+			"PS"		=> "PS",
+			"BROILER"			=> "BROILER",
+			"HATCHERY"	=> "HATCHERY",
+			"LAB"	=> "LAB",
+			"MEAT CENTER"	=> "MEAT CENTER",
+			"RPA"	=> "RPA"
+		];
+
+		if (!empty($key)) {
+			return !empty($list[$key]) ? $list[$key] : "N/A";
+		}
+
+		return $list;
+	}
+
+	private function getOwnership($key = "")
+	{
+		$list = [
+			"JV (CJ PIA)"			=> "JV (CJ PIA)",
+			"KEMITRAAN"		=> "KEMITRAAN",
+			"OWN (SUJA)"			=> "OWN (SUJA)",
+			"SEWA"	=> "SEWA"
+		];
+
+		if (!empty($key)) {
+			return !empty($list[$key]) ? $list[$key] : "N/A";
+		}
+
+		return $list;
 	}
 
 	private function cekLogin() 

@@ -110,8 +110,7 @@ class GisKemitraan extends CI_Controller {
 		// $data['customer']    = $this->datatable_cust();
 
 		// Ambil data TB_PLAN berdasarkan ACTIVITY_NO
-		$this->db->where('ID', $id);
-		$data['kemitraan'] = $this->db->get('GIS_KEMITRAAN')->row_array();
+		$data['kemitraan'] = $this->getFarmDetail($id);
 
 		$this->template->_v('kemitraan/edit', $data);
 	}
@@ -165,7 +164,7 @@ class GisKemitraan extends CI_Controller {
 		$where = "";
 		if ($filter['area'] != '*') {
 			$area = $filter['area'];
-			$where .= " AND A.AREA = $area";
+			$where .= " AND A.AREA = '$area'";
 		}
 		$query = "
 			SELECT
@@ -207,16 +206,37 @@ class GisKemitraan extends CI_Controller {
 			$where .= "AND A.PLAZMA NOT IN (SELECT FARM FROM GIS_KEMITRAAN)";
 		}
 		$query = "
-			SELECT A.FARM, A.PLAZMA, A.FARM_NAME, A.FARM_ADDRESS, B.PLAZMA_NAME
-			FROM 
-					TR_CD_FARM A,
-					TR_CD_PLAZMA B
-			WHERE
-					A.PLAZMA = B.PLAZMA
-					$where
-			ORDER BY A.FARM_NAME ASC
+			 SELECT C.*
+			FROM (
+				SELECT A.FARM, A.PLAZMA, A.FARM_NAME, A.FARM_ADDRESS, B.PLAZMA_NAME
+					FROM 
+							TR_CD_FARM A,
+							TR_CD_PLAZMA B
+					WHERE
+							A.PLAZMA = B.PLAZMA
+							$where
+					ORDER BY A.FARM_NAME ASC
+			)  C
+			WHERE ROWNUM < 100
 		";
-		$data = $this->db->query($query)->get()->result_array();
+		$data = $this->db->query($query)->result_array();
+		return $data;
+	}
+
+	private function getFarmDetail($id)
+	{
+		$query = "
+			SELECT
+				A.*,
+				B.PLAZMA_NAME
+			FROM 
+				GIS_KEMITRAAN A,
+				TR_CD_PLAZMA B
+			WHERE
+				A.PLAZMA = B.PLAZMA
+				AND A.ID = '$id'
+		";
+		$data = $this->db->query($query)->row();
 		return $data;
 	}
 

@@ -523,7 +523,7 @@
 					</div>
 					<div class="col-md-2 col-sm-12 filter-style"  style="display: flex;">
 						<button type="submit" class="btn btn-primary btn-block"><i class="fas fa-search" style="font-size: 20px"></i></button>
-										<a href="<?= admin_url('gis/kemitraan/create-kemitraan') ?>" class="btn btn-primary btn-block" style="height: 36px; padding: 7px 10px 10px 10px; width: 100%; margin-top: 0px; background: green">CREATE</a>  
+						<a href="<?= admin_url('gis/kemitraan/create-kemitraan') ?>" class="btn btn-primary btn-block" style="height: 36px; padding: 7px 10px 10px 10px; width: 100%; margin-top: 0px; background: green">CREATE</a>  
 					</div>
         </div>
     </form>
@@ -539,6 +539,8 @@
 					<th>NO</th>
 					<th>FARM</th>
 					<th>PLAZMA</th>
+					<th>UNIT</th>
+					<th>AREA</th>
 					<th>POPULASI</th>
           <th>LOCATION</th>
           <th>ACTION</th>

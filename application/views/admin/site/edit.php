@@ -833,35 +833,27 @@
                             <tbody>
                                 <tr>
                                     <td data-label="REGION">
-                                        <select id="region" class="form-control region-select" style="width: 100%;" name="region" required>
-                                            <option value="<?= $site['REGION'] ?>"><?= $site['REGION'] ?></option>
-                                            <option value="JAVA">JAVA</option>
-                                            <option value="JAWA & SUMATRA">JAWA & SUMATRA</option>
-                                            <option value="BALI">BALI</option>
-                                            <option value="KALIMANTAN">KALIMANTAN</option>
-                                            <option value="SUMATRA">SUMATRA</option>
+                                         <select id="region" class="form-control region-select" style="width: 100%;" name="region" required>
+                                            <option value="" selected>- SELECT REGION -</option>
+                                            <?php foreach ($region as $i => $v): ?>
+                                                <option <?= $site['REGION'] == $i ? 'selected' : '' ?>  value="<?= $i ?>"><?= $v ?></option>
+                                            <?php endforeach ?>
                                         </select>
                                     </td> 
                                     <td data-label="CITY">
-                                        <select id="city" class="form-control city-select" style="width: 100%;" name="city" required>
-                                            <option value="<?= $site['CITY'] ?>"><?= $site['CITY'] ?></option>
-                                            <option value="BANDUNG">BANDUNG</option>
-                                            <option value="TASIKMALAYA">TASIKMALAYA</option>
-                                            <option value="JOMBANG">JOMBANG</option>
-                                            <option value="BOGOR">BOGOR</option>
-                                            <option value="SUKABUMI">SUKABUMI</option>
+                                         <select id="city" class="form-control city-select" style="width: 100%;" name="city" required>
+                                            <option value="" selected>- SELECT CITY -</option>
+                                            <?php foreach ($city as $i => $v): ?>
+                                                <option <?= $site['CITY'] == $i ? 'selected' : '' ?>  value="<?= $i ?>"><?= $v ?></option>
+                                            <?php endforeach ?>
                                         </select>
                                     </td> 
                                     <td data-label="CLASS">
-                                        <select id="class" class="form-control class-select" style="width: 100%;" name="class" required>
-                                            <option value="<?= $site['CLASS'] ?>"><?= $site['CLASS'] ?></option>
-                                            <option value="GPS">GPS</option>
-                                            <option value="PS">PS</option>
-                                            <option value="BROILER">BROILER</option>
-                                            <option value="HATCHERY">HATCHERY</option>
-                                            <option value="LAB">LAB</option>
-                                            <option value="MEAT CENTER">MEAT CENTER</option>
-                                            <option value="RPA">RPA</option>
+                                         <select id="class" class="form-control class-select" style="width: 100%;" name="class" required>
+                                            <option value="" selected>- SELECT CLASS -</option>
+                                            <?php foreach ($class as $i => $v): ?>
+                                                <option <?= $site['CLASS'] == $i ? 'selected' : '' ?>  value="<?= $i ?>"><?= $v ?></option>
+                                            <?php endforeach ?>
                                         </select>
                                     </td>
                                 </tr>
@@ -877,12 +869,11 @@
                             <tbody>
                                 <tr>
                                     <td data-label="OWNERSHIP">
-                                        <select id="owner" class="form-control owner-select" style="width: 100%;" SITE NAME="owner" required>
-                                            <option value="<?= $site['OWNERSHIP'] ?>"><?= $site['OWNERSHIP'] ?></option>
-                                            <option value="JV (CJ PIA)">JV (CJ PIA)</option>
-                                            <option value="KEMITRAAN">KEMITRAAN</option>
-                                            <option value="OWN (SUJA)">OWN (SUJA)</option>
-                                            <option value="SEWA">SEWA</option>
+                                         <select id="owner" class="form-control owner-select" style="width: 100%;" name="owner" required>
+                                            <option value="" selected>- SELECT OWNERSHIP -</option>
+                                            <?php foreach ($ownership as $i => $v): ?>
+                                                <option <?= $site['OWNERSHIP'] == $i ? 'selected' : '' ?>  value="<?= $i ?>"><?= $v ?></option>
+                                            <?php endforeach ?>
                                         </select>
                                     </td> 
                                     <td data-label="NAME">

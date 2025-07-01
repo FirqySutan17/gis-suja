@@ -833,34 +833,26 @@
                                 <tr>
                                     <td data-label="REGION">
                                         <select id="region" class="form-control region-select" style="width: 100%;" name="region" required>
-                                            <option value="" selected>- SELECT REGION -</option>
-                                            <option value="JAVA">JAVA</option>
-                                            <option value="JAWA & SUMATRA">JAWA & SUMATRA</option>
-                                            <option value="BALI">BALI</option>
-                                            <option value="KALIMANTAN">KALIMANTAN</option>
-                                            <option value="SUMATRA">SUMATRA</option>
+                                            <option value="" selected>- SELECT AREA -</option>
+                                            <?php foreach ($region as $i => $v): ?>
+                                                <option value="<?= $i ?>"><?= $v ?></option>
+                                            <?php endforeach ?>
                                         </select>
                                     </td> 
                                     <td data-label="CITY">
                                         <select id="city" class="form-control city-select" style="width: 100%;" name="city" required>
-                                            <option value="" selected>- SELECT CITY -</option>
-                                            <option value="BANDUNG">BANDUNG</option>
-                                            <option value="TASIKMALAYA">TASIKMALAYA</option>
-                                            <option value="JOMBANG">JOMBANG</option>
-                                            <option value="BOGOR">BOGOR</option>
-                                            <option value="SUKABUMI">SUKABUMI</option>
+                                            <option value="" selected>- SELECT AREA -</option>
+                                            <?php foreach ($city as $i => $v): ?>
+                                                <option value="<?= $i ?>"><?= $v ?></option>
+                                            <?php endforeach ?>
                                         </select>
                                     </td> 
                                     <td data-label="CLASS">
                                         <select id="class" class="form-control class-select" style="width: 100%;" name="class" required>
-                                            <option value="" selected>- SELECT CLASS -</option>
-                                            <option value="GPS">GPS</option>
-                                            <option value="PS">PS</option>
-                                            <option value="BROILER">BROILER</option>
-                                            <option value="HATCHERY">HATCHERY</option>
-                                            <option value="LAB">LAB</option>
-                                            <option value="MEAT CENTER">MEAT CENTER</option>
-                                            <option value="RPA">RPA</option>
+                                            <option value="" selected>- SELECT AREA -</option>
+                                            <?php foreach ($class as $i => $v): ?>
+                                                <option value="<?= $i ?>"><?= $v ?></option>
+                                            <?php endforeach ?>
                                         </select>
                                     </td>
                                 </tr>
@@ -876,12 +868,11 @@
                             <tbody>
                                 <tr>
                                     <td data-label="OWNERSHIP">
-                                        <select id="owner" class="form-control owner-select" style="width: 100%;" SITE NAME="owner" required>
+                                       <select id="owner" class="form-control ownership-select" style="width: 100%;" name="owner" required>
                                             <option value="" selected>- SELECT OWNERSHIP -</option>
-                                            <option value="JV (CJ PIA)">JV (CJ PIA)</option>
-                                            <option value="KEMITRAAN">KEMITRAAN</option>
-                                            <option value="OWN (SUJA)">OWN (SUJA)</option>
-                                            <option value="SEWA">SEWA</option>
+                                            <?php foreach ($ownership as $i => $v): ?>
+                                                <option value="<?= $i ?>"><?= $v ?></option>
+                                            <?php endforeach ?>
                                         </select>
                                     </td> 
                                     <td data-label="NAME">
@@ -919,7 +910,7 @@
                             <tbody>
                                 <tr>
                                     <td data-label="LINK GMAPS">
-                                        <input type="text" name="link_gmaps" class="form-control" style="font-size: 13px !important;" placeholder="HTTPS://GMAPS.COM" />
+                                        <input type="text" name="link_gmaps" class="form-control" style="font-size: 13px !important; text-transform: uppercase" placeholder="HTTPS://GMAPS.COM" />
                                     </td> 
                                 </tr>
                             </tbody>

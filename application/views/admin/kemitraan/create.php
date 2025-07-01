@@ -838,7 +838,7 @@
                                         <select id="farm" class="form-control farm-select" style="width: 100%;" name="farm" required>
                                             <option value="" selected>- SELECT FARM -</option>
                                             <?php foreach ($farm as $i => $v): ?>
-                                                <option data-farmname="<?= $farm['FARM_NAME'] ?>" data-farmaddress="<?= $farm['FARM_ADDRESS'] ?>" data-plazma="<?= $farm['PLAZMA'] ?>" data-plazmaname="<?= $farm['PLAZMA_NAME'] ?>" value="<?= $farm['FARM'] ?>"><?= $farm['FARM_NAME'].' - '.$farm['FARM'] ?></option>
+                                                <option data-farmname="<?= $v['FARM_NAME'] ?>" data-farmaddress="<?= $v['FARM_ADDRESS'] ?>" data-plazma="<?= $v['PLAZMA'] ?>" data-plazmaname="<?= $v['PLAZMA_NAME'] ?>" value="<?= $v['FARM'] ?>"><?= $v['FARM_NAME'].' - '.$v['FARM'] ?></option>
                                             <?php endforeach ?>
                                         </select>
                                     </td> 

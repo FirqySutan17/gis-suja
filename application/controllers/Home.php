@@ -9,12 +9,28 @@ class Home extends CI_Controller {
 	}
 
 	public function index() {
-		$is_login = empty($this->session_data) ? FALSE : TRUE;
+	
+		$gis_site = $this->db->get('GIS_SITE')->result();
+		$gis_kemitraan = $this->db->get('GIS_KEMITRAAN')->result();
+
 		$data = [
-			'is_login'	=> $is_login
+			'is_login' => !empty($this->session_data),
+			'gis_site' => json_encode($gis_site),
+			'gis_kemitraan' => json_encode($gis_kemitraan)
 		];
+
+
+		// dd($data);
 		$this->load->view('welcome', $data);
 	}
+
+	// public function index() {
+	// 	$is_login = empty($this->session_data) ? FALSE : TRUE;
+	// 	$data = [
+	// 		'is_login'	=> $is_login
+	// 	];
+	// 	$this->load->view('welcome', $data);
+	// }
 
 	public function profile() {
 		$this->cekLogin();

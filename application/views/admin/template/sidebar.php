@@ -161,8 +161,8 @@
             <?php endif ?>
 
             <?php if (in_array('SA001', $user_access) || in_array('*', $user_access)): ?>
-            <li class="<?= ($this->uri->segment(2) == 'gis' && $this->uri->segment(3) == 'partnership' && $this->uri->segment(4) == '') ? 'active' : '' ?>">
-                <a href="<?= route('dashboard/gis/partnership') ?>">
+            <li class="<?= ($this->uri->segment(2) == 'gis' && $this->uri->segment(3) == 'kemitraan' && $this->uri->segment(4) == '') ? 'active' : '' ?>">
+                <a href="<?= route('dashboard/gis/kemitraan') ?>">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M14 14V6M14 14L20.1023 17.487C20.5023 17.7156 21 17.4268 21 16.9661V3.03391C21 2.57321 20.5023 2.28439 20.1023 2.51296L14 6M14 14H7C4.79086 14 3 12.2091 3 10V10C3 7.79086 4.79086 6 7 6H14"

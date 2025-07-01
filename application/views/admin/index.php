@@ -1172,21 +1172,9 @@
         <h1>
             WELCOME, <br> <?= $user['FULL_NAME'] ?>
         </h1>
+        <a class="btn-order" href="<?= route('home') ?>">HOME</a>
     </div>
-    <?php if (!empty($warning_data)) : ?>
-    <div style="background: red; color: #fff; border: 2px solid #000; width: 100%; height: auto; border-radius: 8px; padding: 10px;">
-        <h5 style="font-weight: bold; font-size: 18px">MESSAGE WARNING !</h5>
-        <p style="text-transform: uppercase; font-size: 13px">Berikut adalah plan yang belum kamu lengkapi : </p>
-        <ul class="message-warning">
-            <?php foreach ($warning_data as $item): ?>
-                <li>
-                    <?= date('d - m - Y', strtotime($item['ACTIVITY_DATE'])) ?> : CUSTOMER A.N 
-                    <strong><?= strtoupper($item['CUST_NAME']) ?></strong> BELUM TERDATA LENGKAP
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-    <?php endif; ?>
+    
 </div>
 
 <script src="<?= asset('vendor/select2/js/select2.min.js') ?>"></script>

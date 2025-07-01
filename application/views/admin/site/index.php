@@ -515,24 +515,19 @@
 			<div class="col-md-5 col-sm-12 filter-style"  style="display: flex;">
 				<span class="label-span sales-span" style="display: inline-block; vertical-align: middle; margin-top: 9px; font-weight: 600; width: 20%">CLASS : </span> 
                 <select id="class" class="form-control class-select" style="width: 100%;" name="class" required>
-                    <option value="*" selected>- ALL CLASS -</option>
-                    <option value="GPS">GPS</option>
-                    <option value="PS">PS</option>
-                    <option value="BROILER">BROILER</option>
-                    <option value="HATCHERY">HATCHERY</option>
-                    <option value="LAB">LAB</option>
-                    <option value="MEAT CENTER">MEAT CENTER</option>
-                    <option value="RPA">RPA</option>
+                    <option value="*" <?= $filter['class'] == '*' ? 'selected' : ''  ?>>- ALL CLASS -</option>
+                    <?php foreach ($class as $i => $v): ?>
+						<option <?= $filter['class'] == $i ? 'selected' : '' ?>  value="<?= $i ?>"><?= $v ?></option>
+					<?php endforeach ?>
                 </select>
 			</div>
             <div class="col-md-5 col-sm-12 filter-style"  style="display: flex;">
 				<span class="label-span sales-span" style="display: inline-block; vertical-align: middle; margin-top: 9px; font-weight: 600; width: 30%">OWNERSHIP : </span> 
-                <select id="owner" class="form-control owner-select" style="width: 100%;" SITE NAME="owner" required>
-                    <option value="*" selected>- ALL OWNERSHIP -</option>
-                    <option value="JV (CJ PIA)">JV (CJ PIA)</option>
-                    <option value="KEMITRAAN">KEMITRAAN</option>
-                    <option value="OWN (SUJA)">OWN (SUJA)</option>
-                    <option value="SEWA">SEWA</option>
+                <select id="owner" class="form-control owner-select" style="width: 100%;" name="ownership" required>
+                    <option value="*" <?= $filter['ownership'] == '*' ? 'selected' : ''  ?>>- ALL OWNERSHIP -</option>
+                    <?php foreach ($ownership as $i => $v): ?>
+						<option <?= $filter['ownership'] == $i ? 'selected' : '' ?>  value="<?= $i ?>"><?= $v ?></option>
+					<?php endforeach ?>
                 </select>
 			</div>
 			<div class="col-md-2 col-sm-12 filter-style"  style="display: flex;">

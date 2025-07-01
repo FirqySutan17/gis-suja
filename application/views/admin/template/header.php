@@ -11,7 +11,7 @@
     <link rel="icon" type="image/png" href="<?= asset('icon/iconcj.ico') ?>" sizes="32x32">
 
 
-    <title>Sales RPA - PT. Super Unggas Jaya</title>
+    <title>GIS - PT. Super Unggas Jaya</title>
 
     <!-- Scripts -->
     <script src="<?= asset('js/app.js') ?>" defer></script>
@@ -376,6 +376,9 @@
                         <img onclick="ddProfile()" class="dd-profile img-fluid avatar-style"
                             src="<?= asset('icon/avatar.png') ?>" alt="" style="max-width: 40px;">
                         <div id="myddProfile" class="dropdown-content-profile">
+                            <a href="<?= base_url('home') ?>">
+                                <i class='bx bx-home'></i> HOME
+                            </a>
                             <a href="<?= base_url('profile') ?>">
                                 <i class='bx bx-user'></i> PROFILE
                             </a>
