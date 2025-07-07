@@ -228,6 +228,42 @@
       display: none;
     }
 
+    .toggle-wrapper {
+      max-width: 400px;
+      margin: 10px auto;
+      text-align: center;
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      z-index: 10;
+      border-radius: 50px;
+      font-family: cjfont;
+    }
+
+    .toggle-switch {
+      display: flex;
+      justify-content: center;
+      border: 1px solid #ccc;
+      border-radius: 50px;
+      overflow: hidden;
+    }
+
+    .toggle-btn {
+      flex: 1;
+      padding: 10px;
+      cursor: pointer;
+      border: none;
+      background: #f5f5f5;
+      font-weight: bold;
+      color: #555;
+      transition: background 0.3s ease;
+    }
+
+    .toggle-btn.active {
+      background: #005eff;
+      color: white;
+    }
+
     /* Animation */
     @keyframes fadeIn {
       from {opacity: 0;}
@@ -411,6 +447,12 @@
     <?php else: ?>
       <a class="login-btn" href="<?= base_url('login') ?>">LOG IN</a>
     <?php endif ?>
+    <div class="toggle-wrapper">
+      <div class="toggle-switch">
+        <button id="btn-site" class="toggle-btn active">SITE</button>
+        <button id="btn-kemitraan" class="toggle-btn">KEMITRAAN</button>
+      </div>
+    </div>
     <div id="mapgis" style="min-height: 100vh; width: 100%; z-index: 1;"></div>
     <button id="toggleLegendBtn" class="toggle-legend">ℹ️ INFO</button> 
   </section>
@@ -455,8 +497,11 @@
 
 
 <script>
+    let map;
+    let siteLayer;
+    let kemitraanLayer;
     document.addEventListener("DOMContentLoaded", function () {
-        var map = L.map("mapgis").setView([-1.2602493507832897, 121.59033600801094], 5);
+        map = L.map("mapgis").setView([-1.2602493507832897, 121.59033600801094], 5);
 
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             maxZoom: 17,
@@ -507,35 +552,33 @@
             return [parseFloat(parts[0]), parseFloat(parts[1])];
         }
 
-        // Tampilkan semua marker dari GIS_SITE
+      siteLayer = L.layerGroup().addTo(map);
+      kemitraanLayer = L.layerGroup(); // jangan ditampilkan di awal
+
+      // Tampilkan semua marker dari GIS_SITE
       gisSite.forEach(site => {
-        console.log("Parsing site:", site);
+          const coord = parseCoordinate(site.COORDINATE);
+          const cls = site["CLASS"];
+          const iconUrl = classIcons[cls];
 
-        const coord = parseCoordinate(site.COORDINATE);
-        const cls = site["CLASS"];
-        const iconUrl = classIcons[cls];
-        site.CAPACITY ? Number(site.CAPACITY).toLocaleString('id-ID') : ''
+          if (!coord || !iconUrl) return;
 
-        if (!coord) console.warn("Invalid coordinate:", site.COORDINATE);
-        if (!iconUrl) console.warn("Unknown class:", cls);
+          const icon = L.icon({
+              iconUrl: iconUrl,
+              iconSize: [25, 41],
+              iconAnchor: [12, 41],
+              popupAnchor: [0, -34]
+          });
 
-        if (coord && iconUrl) {
-            const icon = L.icon({
-                iconUrl: iconUrl,
-                iconSize: [25, 41],
-                iconAnchor: [12, 41],
-                popupAnchor: [0, -34]
-            });
+          const marker = L.marker(coord, { icon: icon })
+              .bindPopup(`
+                  <strong>${cls}</strong><br> 
+                  <span class="md-size">${site.NAME}</span><br>
+                  <button class="btn-survey btn-detail btn-site" data-id="${site.ID}">DETAIL</button>
+                  <a class="btn-survey" href="${site.LINK_GMAPS}" target="_blank">GMAPS</a>
+              `);
 
-            L.marker(coord, { icon: icon })
-            .bindPopup(`
-                <strong>${cls}</strong><br> 
-                <span class="md-size" style="margin-bottom: 10px">${site.NAME}</span><br>
-                <button class="btn-survey btn-detail btn-site" data-id="${site.ID}">DETAIL</button>
-                <a class="btn-survey" href="${site.LINK_GMAPS}" target="_blank">GMAPS</a>
-            `)
-            .addTo(map);
-        }
+          siteLayer.addLayer(marker);
       });
 
       map.on('popupopen', function (e) {
@@ -564,18 +607,19 @@
         });
 
         gisKemitraan.forEach(kemitraan => {
-          const coord = parseCoordinate(kemitraan.COORDINATE);
-          if (coord) {
-              L.marker(coord, { icon: partnerIcon })
-                  .bindPopup(`
+            const coord = parseCoordinate(kemitraan.COORDINATE);
+            if (!coord) return;
+
+            const marker = L.marker(coord, { icon: partnerIcon })
+                .bindPopup(`
                     <strong>KEMITRAAN :</strong><br>
                     <span class="md-size">${kemitraan.FARM_NAME}</span><br>
                     <span class="sm-size">CAPACITY : ${Number(kemitraan.POPULASI).toLocaleString('id-ID')}</span><br><br>
                     <button class="btn-survey btn-detail btn-kemitraan" data-id="${kemitraan.ID}">DETAIL</button>
                     <a class="btn-survey" href="${kemitraan.LINK_GMAPS}" target="_blank">GMAPS</a>
-                  `)
-                  .addTo(map);
-          }
+                `);
+
+            kemitraanLayer.addLayer(marker);
         });
 
         map.on('popupopen', function (e) {
@@ -592,6 +636,29 @@
               });
           }
         });
+    });
+
+    const btnSite = document.getElementById("btn-site");
+    const btnKemitraan = document.getElementById("btn-kemitraan");
+
+    btnSite.addEventListener("click", () => {
+        btnSite.classList.add("active");
+        btnKemitraan.classList.remove("active");
+
+        if (map) {
+            map.addLayer(siteLayer);
+            map.removeLayer(kemitraanLayer);
+        }
+    });
+
+    btnKemitraan.addEventListener("click", () => {
+        btnKemitraan.classList.add("active");
+        btnSite.classList.remove("active");
+
+        if (map) {
+            map.addLayer(kemitraanLayer);
+            map.removeLayer(siteLayer);
+        }
     });
 </script>
 
@@ -655,6 +722,7 @@
   }
   document.querySelector('#siteDetailModal .close').onclick = closeModal;
   document.querySelector('#partnerDetailModal .close').onclick = closepartModal;
+
 </script>
 
 </body>
