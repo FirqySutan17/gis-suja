@@ -501,7 +501,7 @@
     let siteLayer;
     let kemitraanLayer;
     document.addEventListener("DOMContentLoaded", function () {
-        map = L.map("mapgis").setView([-1.2602493507832897, 121.59033600801094], 5);
+        map = L.map("mapgis").setView([-2.010196622606913, 110.20721486763959], 6);
 
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             maxZoom: 17,
